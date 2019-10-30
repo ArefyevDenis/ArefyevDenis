@@ -18,8 +18,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 INCLUDEPATH += $$PWD/network   $$PWD/u_mof/include/ \
 
-message( pwd : $$PWD )
-message(out_ pwd : $$OUT_PWD )
+DEFINES += PATH_OUT_PWD='"\\\"$$OUT_PWD\\\""'
+DEFINES += PATH_SRC_PWD='"\\\"$$PWD\\\""'
+
+message(pwd     : $$PWD )
+message(out_pwd : $$OUT_PWD )
 
 SOURCES += \
         main.cpp \
@@ -37,6 +40,8 @@ SOURCES += \
     $$PWD/network/*.cpp \
     $$PWD/serial/*.cpp \
     $$PWD/u_mof/src/*.cpp \
+    $$PWD/core_window/*.cpp \
+    $$PWD/core_window/widgets/*.cpp
 
 # Default rules for deployment.
 #qnx: target.path = /tmp/$${TARGET}/bin
@@ -60,6 +65,8 @@ HEADERS += \
     $$PWD/u_mof/include/*.h \
     $$PWD/u_mof/include/umof/*.h \
     $$PWD/u_mof/include/umof/detail/*.h \
+    $$PWD/core_window/*.h \
+    $$PWD/core_window/widgets/*.h
 
 unix{
 
