@@ -1,0 +1,4 @@
+LIBRARY	""
+EXPORTS
+GetModuleGetterInfoIface=GetModuleGetterInfoIface
+ServiceModuleInstallIface=ServiceModuleInstallIface
