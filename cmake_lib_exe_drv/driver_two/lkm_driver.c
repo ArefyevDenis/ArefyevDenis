@@ -20,13 +20,15 @@ static struct class*  ebbcharClass  = NULL; ///< The device-driver class struct 
 static struct device* ebbcharDevice = NULL; ///< The device-driver device struct pointer
 
 
-static int dev_open(struct inode *inodep, struct file *filep){
+static int dev_open(struct inode *inodep, struct file *filep)
+{
    numberOpens++;
    printk(KERN_INFO "EBBChar: Device has been opened %d time(s)\n", numberOpens);
    return 0;
 }
 
-static ssize_t dev_read(struct file *filep, char *buffer, size_t len, loff_t *offset){
+static ssize_t dev_read(struct file *filep, char *buffer, size_t len, loff_t *offset)
+{
    int error_count = 0;
    // copy_to_user has the format ( * to, *from, size) and returns 0 on success
    error_count = copy_to_user(buffer, message, size_of_message);
@@ -40,25 +42,27 @@ static ssize_t dev_read(struct file *filep, char *buffer, size_t len, loff_t *of
    }
 }
 
-static ssize_t dev_write(struct file *filep, const char *buffer, size_t len, loff_t *offset){
+static ssize_t dev_write(struct file *filep, const char *buffer, size_t len, loff_t *offset)
+{
    sprintf(message, "%s(%zu letters)", buffer, len);   // appending received string with its length
    size_of_message = strlen(message);                 // store the length of the stored message
    printk(KERN_INFO "EBBChar: Received %zu characters from the user\n", len);
    return len;
 }
 
-static int dev_release(struct inode *inodep, struct file *filep){
-   printk(KERN_INFO "EBBChar: Device successfully closed\n");
-   return 0;
+static int dev_release(struct inode *inodep, struct file *filep)
+{
+    printk(KERN_INFO "EBBChar: Device successfully closed\n");
+    return 0;
 }
 
-static long dev_ioctl (struct file *fp, unsigned int ioctl_num, unsigned long ioctl_param){
-
+static long dev_ioctl (struct file *fp, unsigned int ioctl_num, unsigned long ioctl_param)
+{
   return 0;
 }
 
-static unsigned int dev_poll(struct file *fp, struct poll_table_struct *poll_table){
-
+static unsigned int dev_poll(struct file *fp, struct poll_table_struct *poll_table)
+{
   return 0;
 }
 
